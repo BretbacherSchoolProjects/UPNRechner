@@ -33,9 +33,7 @@ public class Controller implements Initializable{
     private Stage stage;
 
     public Controller(){
-        for (int i = 0; i < ls_values.getItems().size(); i++) {
-            stack.push(ls_values.getItems().get(i));
-        }
+
     }
 
     public static void show(Stage stage) {
@@ -66,6 +64,7 @@ public class Controller implements Initializable{
     }
 
     public void handle_btnPressed(Event event){
+
         Object obj=event.getSource();
         Button btn=(Button)obj;
         int v=0;
@@ -87,14 +86,17 @@ public class Controller implements Initializable{
                     break;
                 case "--":
                     if (txtf_input.getText().contains("-")){
-                        txtf_input.getText().replace("-", "+");
+                        txtf_input.setText(txtf_input.getText().replace("-", "+"));
                     }else{
-                        txtf_input.getText().replace("+", "-");
+                        if (txtf_input.getText().contains("+")){
+                            txtf_input.setText(txtf_input.getText().replace("+", "-"));
+                        }else{
+                            txtf_input.setText("-" + txtf_input.getText());
+                        }
                     }
                     break;
                 case "ENTER":
-                    ls_values.getItems().add(Double.parseDouble(txtf_input.getText()));
-                    txtf_input.clear();
+                    addValueToList();
                     break;
                 case "C":
                     clearAll();
@@ -106,17 +108,27 @@ public class Controller implements Initializable{
                 case "-":
                 case "*":
                 case "/":
-                    calc(btn.getText());
+                    calc(op);
                     break;
                 case "1/x":
-                    txtf_input.setText(String.format("%f",1/Double.parseDouble(txtf_input.getText())));
+                    txtf_input.setText(String.format("%f",1/Double.parseDouble(txtf_input.getText())).replace(",", "."));
                     break;
                 case "x<->y":
-                    Double help = stack.pop();
-                    Double help2=stack.pop();
+                    initStack();
 
-                    stack.push(help2);
+                    Double help = stack.pop();
+                    System.out.println(help);
+                    Double help2=stack.pop();
+                    System.out.println(help2);
+
+                    ls_values.getItems().remove(0, 2);
+
                     stack.push(help);
+                    stack.push(help2);
+
+                    ls_values.getItems().add(help);
+                    ls_values.getItems().add(help2);
+                    stack.clear();
                     break;
                 default:
                     clearAll();
@@ -125,8 +137,10 @@ public class Controller implements Initializable{
         }
     }
 
-    Double calc(String op){
-        double v=0;
+    void calc(String op){
+        initStack();
+
+        double v = stack.pop();
 
         switch (op){
             case "+":
@@ -150,11 +164,30 @@ public class Controller implements Initializable{
                 }
                 break;
         }
-        return v;
+        ls_values.getItems().clear();
+        ls_values.getItems().add(v);
     }
 
     void clearAll(){
         txtf_input.clear();
-        ls_values.getItems().removeAll();
+        ls_values.getItems().removeAll(ls_values.getItems());
+    }
+
+    void addValueToList(){
+        ls_values.getItems().add(Double.parseDouble(txtf_input.getText()));
+        txtf_input.clear();
+    }
+
+    void initStack(){
+        try {
+            addValueToList();
+            System.out.println("success");
+        }catch(Exception ignored){
+            System.out.println("failed");
+        }
+        stack.clear();
+        for (int i = ls_values.getItems().size()-1; i >= 0; i--) {
+            stack.push(ls_values.getItems().get(i));
+        }
     }
 }
