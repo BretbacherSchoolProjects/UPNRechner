@@ -68,7 +68,7 @@ public class Controller implements Initializable{
         Object obj=event.getSource();
         Button btn=(Button)obj;
         int v=0;
-        String op="";
+        String op;
         boolean isNum=true;
         try{
             v=Integer.parseInt(btn.getText());
@@ -113,13 +113,11 @@ public class Controller implements Initializable{
                 case "1/x":
                     txtf_input.setText(String.format("%f",1/Double.parseDouble(txtf_input.getText())).replace(",", "."));
                     break;
-                case "x<->y":
+                case "x-y-z":
                     initStack();
 
                     Double help = stack.pop();
-                    System.out.println(help);
                     Double help2=stack.pop();
-                    System.out.println(help2);
 
                     ls_values.getItems().remove(0, 2);
 

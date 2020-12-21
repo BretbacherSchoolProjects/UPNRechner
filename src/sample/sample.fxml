@@ -79,7 +79,7 @@
                   <Button mnemonicParsing="false" onMouseClicked="#handle_btnPressed" prefHeight="78.0" prefWidth="102.0" text="*" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onMouseClicked="#handle_btnPressed" prefHeight="50.0" prefWidth="70.0" text="/" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onMouseClicked="#handle_btnPressed" prefHeight="65.0" prefWidth="94.0" text="1/x" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" onMouseClicked="#handle_btnPressed" prefHeight="76.0" prefWidth="110.0" text="x&lt;-&gt;y" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onMouseClicked="#handle_btnPressed" prefHeight="76.0" prefWidth="110.0" text="x-y-z" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
